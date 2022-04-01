@@ -1,70 +1,58 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import moment, { months, suppressDeprecationWarnings } from "moment";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from '../Header';
+import HttpClient from "../../services/issueBook-service";
 toast.configure()
 
 const IssueBook = () => {
-    const values = {
-        bookname: "",
-        bookauthor: "",
-        email: "",
-        contactNumber: "",
-        issuedate: "",
-    };
-    // sessionStorage.setItem("email", "sourav.mlk2@gmail.com");
-    // sessionStorage.setItem("contactNumber", "9024400722");
+    // bookID will be fetched from URL
+    const bookID = "12345";
+    sessionStorage.setItem("email", "sourav.mlk2@gmail.com");
     const userEmail = sessionStorage.getItem("email");
-    const userContactNumber = sessionStorage.getItem("contactNumber");
+
+    const [book, setBook] = useState(null);
+    const [contact, setcontactNumber] = useState(null);
+
+    const fetchBookById = async (id) => {
+        const bookResponse = await HttpClient.get(`getBookByID/${id}`);
+        setBook(bookResponse.data.Item);
+    };
+
+    const fetchContactNumberByEmail = async (email) => {
+        const userResponse = await HttpClient.get(`getContactNumberByEmail/${email}`);
+        setcontactNumber(userResponse.data.Item);
+    };
+
+    useEffect(() => {
+        fetchBookById(bookID);
+        fetchContactNumberByEmail(userEmail);
+    }, []);
+
     const bookIssueDate = moment().format("YYYY-MM-DD")
     const bookReturnDate = moment().add(1, 'months').format("YYYY-MM-DD")
-    const bookTitle = "Breaking Dawn";
-    const bookAuthor = "Author Name";
 
-    const [formValues, setValues] = useState(values);
-    const [formErrors, setErrors] = useState({});
-    const [onSubmit, setOnSubmit] = useState(false);
-
-
-    const handleRegister = (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
-        // const req = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //         bookTitle: bookTitle,
-        //         bookAuthor: bookAuthor,
-        //         email: userEmail,
-        //         contactNumber: userContactNumber,
-        //         issueDate: bookIssueDate,
-        //         returnDate: bookReturnDate
-        //     })
-        // };
-        // fetch('http://localhost:8080/bookaholic/api/issueBook', req)
-        //     .then(response => {
-        //         if (response.status >= 400) {
-        //             // setInvalidCredError(true);
-        //             // throw new Error("Server responds with error!");
-        //         } else {
-        //             notify("Book issued successfully")
-        //             return response.json();
-        //         }
-        //     })
-        //     .then(responseJson => {
-        //         // navigate("usersList");
-        //     });
-        // setOnSubmit(true);
+        const issueBookRes = await HttpClient.post("issueBook", {
+            "email": userEmail,
+            "booksIssued": [
+                {
+                    "bookTitle": book.bookName
+                }
+            ],
+            "contactNumber": "+1" + contact.contactNumber
+        });
+        if (issueBookRes.status === 200) {
+            toast(issueBookRes.data.message);
+        } else {
+            toast("Something went wrong.")
+        }
     };
-    const notify = (message) => {
-
-        toast(message)
-    }
 
     return (
         <div className="container">
-
             <Header />
             <div className="issue-book">
                 <form onSubmit={handleRegister}>
@@ -77,7 +65,7 @@ const IssueBook = () => {
                             className={`text-label`}
                             name="bookname"
                             type="text"
-                            value={bookTitle}
+                            value={book?.bookName}
                             disabled={true}
                         ></input>
                     </div>
@@ -87,7 +75,7 @@ const IssueBook = () => {
                             className={`text-label`}
                             name="bookauthor"
                             type="text"
-                            value={bookAuthor}
+                            value={book?.bookAuthor}
                             disabled={true}
                         ></input>
                     </div>
@@ -107,7 +95,7 @@ const IssueBook = () => {
                             className={`text-label`}
                             name="contactNumber"
                             type="tel"
-                            value={userContactNumber}
+                            value={contact?.contactNumber}
                             disabled={true}
                         ></input>
                     </div>
@@ -138,7 +126,6 @@ const IssueBook = () => {
                     </div>
                 </form>
             </div>
-
         </div>
     );
 };
