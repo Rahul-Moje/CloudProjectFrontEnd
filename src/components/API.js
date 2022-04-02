@@ -1,1 +1,1 @@
-export const API = "http://10.0.1.143:8080/bookaholic/api"
+export const API = "http://10.0.1.143:80/bookaholic/api"
