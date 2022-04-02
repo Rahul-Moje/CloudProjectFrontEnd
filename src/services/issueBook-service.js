@@ -2,7 +2,7 @@
  Author: [Sourav Malik] (sr343164@dal.ca)
 ========================================================= */
 import axios from "axios";
-const baseUri = "http://localhost:8080/bookaholic/api/";
+const baseUri = "http://10.0.3.238:5000/bookaholic/api/";
 
 const HttpClient = {
     get: (resourceUri) => {
