@@ -7,6 +7,7 @@ import Header from './components/Header';
 import SignUp from "./components/Login/SignUp";
 import Login from "./components/Login/Login";
 import Authentication from "./components/Login/Authentication";
+import ViewBooks from "./pages/ViewBooks";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/login" element={<Login/>}></Route>
                     <Route path="/issuebook" element={<IssueBook/>}></Route>
                     <Route path="/authenticate" element={<Authentication/>}></Route>
+                    <Route path="/viewBooks" element={<ViewBooks/>}></Route>
                 </Routes>
         </div>
     );
