@@ -12,7 +12,6 @@ function App() {
     return (
         <div className="app">
             <Header/>
-            <BrowserRouter>
                 <Routes>
                     <Route path="/test" element={<TestConnectivity/>}/>
                     <Route path="/static" element={<StaticPage/>}/>
@@ -21,7 +20,6 @@ function App() {
                     <Route path="/issuebook" element={<IssueBook/>}></Route>
                     <Route path="/authenticate" element={<Authentication/>}></Route>
                 </Routes>
-            </BrowserRouter>
         </div>
     );
 }

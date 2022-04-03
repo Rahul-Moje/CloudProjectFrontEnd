@@ -24,6 +24,7 @@ function Login() {
         user.authenticateUser(authenticationDetails,{
            onSuccess:(data) =>{
                console.log("success",data)
+               localStorage.setItem("email",JSON.stringify(email))
                navigate("/issuebook")
            },
             onFailure:(err)=>{

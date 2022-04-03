@@ -11,12 +11,6 @@ function SignUp(){
     const[email,setEmail] = useState("");
     const[password,setPassword] = useState("");
     const[mobileNumber,setMobileNumber] = useState("");
-
-    // const poolData = {
-    //     UserPoolId: "us-east-1_jy0VVY4Ai",
-    //     ClientId: "15gjmj51qgejmfs4s6jjdedg67"
-    //
-    // }
     const userPool = new CognitoUserPool(poolData);
 
 
