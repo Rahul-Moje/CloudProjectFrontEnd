@@ -30,9 +30,10 @@ function Authentication() {
     return (
         <div>
             <form onSubmit={onSubmit}>
-            <label htmlFor="code">Enter code</label>
-            <input value={code} onChange={(event)=>setCode(event.target.value)}></input>
-                <button type="submit">Submit</button>
+            <label htmlFor="code" className={"fw-bold"}>Enter one time password received on {userEmail} </label>
+            <input className={"form-control"} required={true} value={code} onChange={(event)=>setCode(event.target.value)}></input>
+                <br/>
+                <button type="submit" className={"btn btn-primary mr-3"}>Submit</button>
             </form>
         </div>
     );

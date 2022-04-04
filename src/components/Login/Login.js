@@ -35,13 +35,20 @@ function Login() {
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <label htmlFor="email">Email</label>
-                <input value={email} onChange={(event)=> setEmail(event.target.value)}></input>
+                <div className={"form-group"}>
+                    <label htmlFor="email" className={"fw-bold"}>Email</label>
+                    <input required={true} type="email" className={"form-control"} value={email}
+                           onChange={(event) => setEmail(event.target.value)} placeholder={"Enter your email id"}></input>
+                </div>
 
-                <label htmlFor="password">Password</label>
-                <input value={password} onChange={(event)=>setPassword(event.target.value)}></input>
-
-                <button type="submit">Login</button>
+                <div className={"form-group"}>
+                    <label htmlFor="password" className={"fw-bold"}>Password</label>
+                    <input className={"form-control"} required={true} type="password" value={password}
+                           onChange={(event) => setPassword(event.target.value)} placeholder={"Enter a password"}></input>
+                </div>
+                <br/>
+                <button type="submit" className={"btn btn-primary m-3"}>Login</button>
+                <button type="button" onClick={()=>navigate("/")} className={"btn btn-primary"}>Back</button>
             </form>
         </div>
     );
