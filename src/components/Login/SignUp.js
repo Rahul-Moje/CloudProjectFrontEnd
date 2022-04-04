@@ -5,17 +5,15 @@ import {useNavigate} from 'react-router-dom';
 import poolData from "./PoolData";
 
 
-
-function SignUp(){
+function SignUp() {
     const navigate = useNavigate();
-    const[email,setEmail] = useState("");
-    const[password,setPassword] = useState("");
-    const[mobileNumber,setMobileNumber] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
     const userPool = new CognitoUserPool(poolData);
 
 
-
-    const onSubmit = (event)=>{
+    const onSubmit = (event) => {
         event.preventDefault();
         //referenced from https://www.youtube.com/watch?v=Yp5sZd7ZyCI
         const attributeList = [
@@ -25,34 +23,44 @@ function SignUp(){
             }),
         ];
 
-        navigate("/authenticate",{state:{email:email}})
+        // navigate("/authenticate", {state: {email: email}})
 
-        userPool.signUp(email,password,attributeList,null,(err,data) =>{
-            if(err){
-                if(err.code==='UsernameExistsException'){
+        userPool.signUp(email, password, attributeList, null, (err, data) => {
+            if (err) {
+                if (err.code === 'UsernameExistsException') {
                     navigate("/login")
                 }
-            }
-            else {
-                navigate("/authenticate",{state:{email}})
+            } else {
+                navigate("/authenticate", {state: {email}})
             }
         })
     }
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <label htmlFor="email">Email</label>
-                <input value={email} onChange={(event)=> setEmail(event.target.value)}></input>
-
-                <label htmlFor="password">Password</label>
-                <input value={password} onChange={(event)=>setPassword(event.target.value)}></input>
-
-                <label htmlFor="mobileNumber">Mobile Number</label>
-                <input value={mobileNumber} onChange={(e)=>setMobileNumber(e.target.value)}></input>
-
-                <button type="submit">Signup</button>
+                <div className={"form-group"}>
+                    <label htmlFor="email" className={"fw-bold"}>Email</label>
+                    <input required={true} type="email" className={"form-control"} value={email}
+                           onChange={(event) => setEmail(event.target.value)}
+                           placeholder={"Enter your email id"}></input>
+                </div>
+                <div className={"form-group"}>
+                    <label htmlFor="password" className={"fw-bold"}>Password</label>
+                    <input className={"form-control"} required={true} type="password" value={password}
+                           onChange={(event) => setPassword(event.target.value)}
+                           placeholder={"Enter a password"}></input>
+                </div>
+                <div className={"form-group"}>
+                    <label htmlFor="mobileNumber" className={"fw-bold"}>Mobile Number</label>
+                    <input className={"form-control"} required={true} value={mobileNumber}
+                           onChange={(e) => setMobileNumber(e.target.value)}
+                           placeholder={"Enter +1 followed by your number"}></input>
+                </div>
+                <br/>
+                <button type="submit" className={"btn btn-primary mr-3"}>Signup</button>
             </form>
         </div>
     )
 }
+
 export default SignUp;

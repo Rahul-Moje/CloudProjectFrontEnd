@@ -8,6 +8,8 @@ import SignUp from "./components/Login/SignUp";
 import Login from "./components/Login/Login";
 import Authentication from "./components/Login/Authentication";
 import ViewBooks from "./pages/ViewBooks";
+import WelcomePage from "./pages/WelcomePage";
+
 
 function App() {
     return (
@@ -16,7 +18,8 @@ function App() {
                 <Routes>
                     <Route path="/test" element={<TestConnectivity/>}/>
                     <Route path="/static" element={<StaticPage/>}/>
-                    <Route path="/" element={<SignUp/>}></Route>
+                    <Route path="/" element={<WelcomePage/>}></Route>
+                    <Route path="/signup" element={<SignUp/>}></Route>
                     <Route path="/login" element={<Login/>}></Route>
                     <Route path="/issuebook" element={<IssueBook/>}></Route>
                     <Route path="/authenticate" element={<Authentication/>}></Route>
