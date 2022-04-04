@@ -7,6 +7,9 @@ import HttpClient from "../../services/issueBook-service";
 toast.configure()
 
 const IssueBook = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const retrievedBookId = queryParams.get('id') // Retrieved from previous view book page
+    console.log('Issue book id is ', retrievedBookId)
     // bookID will be fetched from URL
     const bookID = "12345";
     sessionStorage.setItem("email", "sourav.mlk2@gmail.com");
@@ -53,7 +56,6 @@ const IssueBook = () => {
 
     return (
         <div className="container">
-            <Header />
             <div className="issue-book">
                 <form onSubmit={handleRegister}>
                     <h2 className="title">Issue Book</h2>
