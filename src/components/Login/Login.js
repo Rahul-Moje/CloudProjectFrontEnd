@@ -25,7 +25,7 @@ function Login() {
            onSuccess:(data) =>{
                console.log("success",data)
                localStorage.setItem("email",JSON.stringify(email))
-               navigate("/issuebook")
+               navigate("/viewBooks")
            },
             onFailure:(err)=>{
                console.log("failure",err)
