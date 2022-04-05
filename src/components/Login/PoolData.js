@@ -4,8 +4,8 @@ import React from 'react';
 
 
     const poolData = {
-        UserPoolId: "us-east-1_jy0VVY4Ai",
-        ClientId: "15gjmj51qgejmfs4s6jjdedg67"
+        UserPoolId: "us-east-1_dYA1LDKVI",
+        ClientId: "75t9njgnqkd25j0qgupoikfvva"
 
     }
 

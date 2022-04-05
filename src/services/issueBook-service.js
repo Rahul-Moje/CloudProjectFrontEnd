@@ -2,20 +2,21 @@
  Author: [Sourav Malik] (sr343164@dal.ca)
 ========================================================= */
 import axios from "axios";
-const baseUri = "http://10.0.3.238:5000/bookaholic/api/";
+import { API } from "../components/API";
+
 
 const HttpClient = {
     get: (resourceUri) => {
-        return axios.get(`${baseUri}${resourceUri}`);
+        return axios.get(`${API}${resourceUri}`);
     },
     post: (resourceUri, payload) => {
-        return axios.post(`${baseUri}${resourceUri}`, payload);
+        return axios.post(`${API}${resourceUri}`, payload);
     },
     put: (resourceUri, payload) => {
-        return axios.put(`${baseUri}${resourceUri}`, payload);
+        return axios.put(`${API}${resourceUri}`, payload);
     },
     remove: (resourceUri) => {
-        return axios.delete(`${baseUri}${resourceUri}`);
+        return axios.delete(`${API}${resourceUri}`);
     },
 };
 
