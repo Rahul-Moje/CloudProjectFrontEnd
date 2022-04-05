@@ -11,20 +11,20 @@ const IssueBook = () => {
     const retrievedBookId = queryParams.get('id') // Retrieved from previous view book page
     console.log('Issue book id is ', retrievedBookId)
     // bookID will be fetched from URL
-    const bookID = "12345";
-    sessionStorage.setItem("email", "sourav.mlk2@gmail.com");
-    const userEmail = sessionStorage.getItem("email");
+    const bookID = retrievedBookId;
+    const userEmail = localStorage.getItem("email").substring(1, localStorage.getItem("email").length-1);
 
     const [book, setBook] = useState(null);
     const [contact, setcontactNumber] = useState(null);
 
     const fetchBookById = async (id) => {
-        const bookResponse = await HttpClient.get(`getBookByID/${id}`);
+        const bookResponse = await HttpClient.get(`/getBookByID/${id}`);
         setBook(bookResponse.data.Item);
     };
 
     const fetchContactNumberByEmail = async (email) => {
-        const userResponse = await HttpClient.get(`getContactNumberByEmail/${email}`);
+        const userResponse = await HttpClient.get(`/getContactNumberByEmail/${userEmail}`);
+        console.log(userResponse)
         setcontactNumber(userResponse.data.Item);
     };
 
@@ -38,14 +38,14 @@ const IssueBook = () => {
 
     const handleRegister = async (event) => {
         event.preventDefault();
-        const issueBookRes = await HttpClient.post("issueBook", {
+        const issueBookRes = await HttpClient.post("/issueBook", {
             "email": userEmail,
             "booksIssued": [
                 {
-                    "bookTitle": book.bookName
+                    "bookTitle": book.name
                 }
             ],
-            "contactNumber": "+1" + contact.contactNumber
+            "contactNumber": contact.contactNumber
         });
         if (issueBookRes.status === 200) {
             toast(issueBookRes.data.message);
@@ -67,7 +67,7 @@ const IssueBook = () => {
                             className={`text-label`}
                             name="bookname"
                             type="text"
-                            value={book?.bookName}
+                            value={book?.name}
                             disabled={true}
                         ></input>
                     </div>
@@ -77,7 +77,7 @@ const IssueBook = () => {
                             className={`text-label`}
                             name="bookauthor"
                             type="text"
-                            value={book?.bookAuthor}
+                            value={book?.author}
                             disabled={true}
                         ></input>
                     </div>

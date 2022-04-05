@@ -1,1 +1,1 @@
-export const API = "/bookaholic/api"
+export const API = "bookaholic/api"
