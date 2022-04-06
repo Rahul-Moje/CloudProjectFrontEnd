@@ -18,7 +18,7 @@ function Authentication() {
         Username:userEmail,
         Pool:userPool
     })
-
+//referenced from https://www.tabnine.com/code/javascript/functions/amazon-cognito-identity-js/CognitoUser/confirmRegistration
     const onSubmit = (event)=> {
         event.preventDefault();
         user.confirmRegistration(code,true,(err,res)=>{
