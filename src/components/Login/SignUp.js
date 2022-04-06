@@ -23,8 +23,7 @@ function SignUp() {
             }),
         ];
 
-        // navigate("/authenticate", {state: {email: email}})
-
+//referenced from https://www.youtube.com/watch?v=8WZmIdXZe3Q&t=9s
         userPool.signUp(email, password, attributeList, null, (err, data) => {
             if (err) {
                 if (err.code === 'UsernameExistsException') {
